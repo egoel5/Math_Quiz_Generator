@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/main_screen">
+
+    <fragment
+        android:id="@+id/main_screen"
+        android:name="com.example.c323_project3.main_screen"
+        android:label="main_screen"
+        tools:layout="@layout/fragment_main_screen">
+        <action
+            android:id="@+id/start_click"
+            app:destination="@id/question_screen" />
+    </fragment>
+    <fragment
+        android:id="@+id/question_screen"
+        android:name="com.example.c323_project3.question_screen"
+        android:label="fragment_question_screen"
+        tools:layout="@layout/fragment_question_screen" >
+        <action
+            android:id="@+id/action_question_screen_to_result_screen"
+            app:destination="@id/result_screen" />
+    </fragment>
+    <fragment
+        android:id="@+id/result_screen"
+        android:name="com.example.c323_project3.result_screen"
+        android:label="fragment_result_screen"
+        tools:layout="@layout/fragment_result_screen" >
+        <action
+            android:id="@+id/action_result_screen_to_main_screen"
+            app:destination="@id/main_screen" />
+    </fragment>
+</navigation>
