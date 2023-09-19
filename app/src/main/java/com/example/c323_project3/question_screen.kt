@@ -1,6 +1,7 @@
 package com.example.c323_project3
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,9 +33,9 @@ class question_screen : Fragment() {
     var correctNum = 0
 
     var questionsDone = 0
-    var questions = 3
-    val difficulty = 1
-    val operation = 1
+    var questions = 1
+    var difficulty = 1
+    var operation = 1
     var correct = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +45,11 @@ class question_screen : Fragment() {
         val view = inflater.inflate(R.layout.fragment_question_screen, container, false)
         val doneButton = view.findViewById<Button>(R.id.doneButton)
         val userInput = view.findViewById<EditText>(R.id.userInput)
+
+        difficulty = question_screenArgs.fromBundle(requireArguments()).difficulty
+        operation = question_screenArgs.fromBundle(requireArguments()).operation
+        questions = question_screenArgs.fromBundle(requireArguments()).numOfQuestions
+
         firstNum = view.findViewById(R.id.firstNum)
         secondNum = view.findViewById(R.id.secondNum)
         oper = view.findViewById(R.id.operation)
@@ -52,11 +58,15 @@ class question_screen : Fragment() {
         doneButton.setOnClickListener{
             questionsDone++
             if (questionsDone == questions) {
+                if (userInput.text.toString() == (correctNum.toString())) {
+                    correct++
+                }
+                val action = question_screenDirections.actionQuestionScreenToResultScreen(correct, questions)
                 view.findNavController()
-                    .navigate(R.id.action_question_screen_to_result_screen)
+                    .navigate(action)
             }
             else {
-                if (userInput.text.equals(correctNum.toString())) {
+                if (userInput.text.toString() == (correctNum.toString())) {
                     correct++
                 }
                 userInput.setText("")
@@ -91,15 +101,19 @@ class question_screen : Fragment() {
     fun doMath() {
         if (operation == 1) {
             correctNum = num1 + num2
+            oper.text = "+"
         }
         else if (operation == 2) {
             correctNum = num1 * num2
+            oper.text = "*"
         }
         else if (operation == 3) {
             correctNum = num1 / num2
+            oper.text = "/"
         }
         else if (operation == 4) {
             correctNum = num1 - num2
+            oper.text = "-"
         }
     }
 

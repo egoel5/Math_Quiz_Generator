@@ -46,6 +46,18 @@ class main_screen : Fragment() {
         val moreButton = view.findViewById<Button>(R.id.moreButton)
         var tvNumQ = view.findViewById<TextView>(R.id.tvNumQ)
 
+        lessButton.setOnClickListener {
+            if (numQuestions != 1) {
+                numQuestions -= 1
+            }
+            tvNumQ.text = numQuestions.toString()
+        }
+
+        moreButton.setOnClickListener {
+            numQuestions += 1
+            tvNumQ.text = numQuestions.toString()
+        }
+
         startButton.setOnClickListener {
             if (easy.isChecked) {
                 difficulty = 1
@@ -68,20 +80,9 @@ class main_screen : Fragment() {
             if (subtract.isChecked) {
                 operation = 4
             }
+            val action = main_screenDirections.startClick(difficulty, operation, numQuestions)
             view.findNavController()
-                .navigate(R.id.start_click)
-        }
-
-        lessButton.setOnClickListener {
-            if (numQuestions != 1) {
-                numQuestions -= 1
-            }
-            tvNumQ.text = numQuestions.toString()
-        }
-
-        moreButton.setOnClickListener {
-            numQuestions += 1
-            tvNumQ.text = numQuestions.toString()
+                .navigate(action)
         }
         return view
     }

@@ -20,8 +20,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class result_screen : Fragment() {
-    val numQuestions = 5
-    val numCorrect = 3
+    var numQuestions = 1
+    var numCorrect = 1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +31,9 @@ class result_screen : Fragment() {
         val restartButton = view.findViewById<Button>(R.id.restartButton)
         val correct = view.findViewById<TextView>(R.id.correct)
         val questions = view.findViewById<TextView>(R.id.questions)
+
+        numCorrect = result_screenArgs.fromBundle(requireArguments()).numCorrect
+        numQuestions = result_screenArgs.fromBundle(requireArguments()).numQuestions
 
         correct.text = numCorrect.toString()
         questions.text = numQuestions.toString()
