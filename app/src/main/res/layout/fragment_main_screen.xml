@@ -35,19 +35,23 @@
             </TextView>
 
             <RadioGroup
+                android:id="@+id/difficultyGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <RadioButton
+                    android:id="@+id/easy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Easy">
                 </RadioButton>
                 <RadioButton
+                    android:id="@+id/medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Medium">
                 </RadioButton>
                 <RadioButton
+                    android:id="@+id/hard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hard">
@@ -68,27 +72,32 @@
                 android:textSize="16dp"
                 ></TextView>
             <RadioGroup
+                android:id="@+id/operationGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
+                    android:id="@+id/add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Addition"
                     android:padding="-50dp">
                 </RadioButton>
                 <RadioButton
+                    android:id="@+id/multiply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Multiplication"
                     android:padding="-50dp">
                 </RadioButton>
                 <RadioButton
+                    android:id="@+id/divide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Division">
                 </RadioButton>
                 <RadioButton
+                    android:id="@+id/subtract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Subtraction">
@@ -113,21 +122,31 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center">
+
             <Button
+                android:id="@+id/lessButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                android:textSize="30dp"></Button>
+                android:textColorLink="#00FFFFFF"
+                android:textSize="40dp"
+                android:textColor="@color/black"></Button>
             <TextView
+                android:id="@+id/tvNumQ"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textSize="40dp"
                 android:paddingHorizontal="15dp"></TextView>
+
             <Button
+                android:id="@+id/moreButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+"
+                android:textColor="@color/black"
                 android:textSize="35dp"></Button>
         </LinearLayout>
 
@@ -140,5 +159,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="@integer/material_motion_duration_long_1"
         android:text="START"
+        android:textSize="50dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"></Button>
 </LinearLayout>
