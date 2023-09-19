@@ -22,6 +22,15 @@
         <action
             android:id="@+id/action_question_screen_to_result_screen"
             app:destination="@id/result_screen" />
+        <argument
+            android:name="difficulty"
+            app:argType="integer"></argument>
+        <argument
+            android:name="operation"
+            app:argType="integer"></argument>
+        <argument
+            android:name="numOfQuestions"
+            app:argType="integer"></argument>
     </fragment>
     <fragment
         android:id="@+id/result_screen"
@@ -31,5 +40,11 @@
         <action
             android:id="@+id/action_result_screen_to_main_screen"
             app:destination="@id/main_screen" />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer"></argument>
+        <argument
+            android:name="numQuestions"
+            app:argType="integer"></argument>
     </fragment>
 </navigation>
