@@ -11,6 +11,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.findNavController
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +35,7 @@ class question_screen : Fragment() {
     var num1 = 0
     var num2 = 0
     var correctNum = 0
+    var correctNumDec = 0.0
     var questionsDone = 0
 
     // initialize vars that will be populated by SafeArgs
@@ -74,7 +78,7 @@ class question_screen : Fragment() {
             and then navigate with that action.
              */
             if (questionsDone == questions) {
-                if (userInput.text.toString() == (correctNum.toString())) {
+                if (userInput.text.toString() == ((correctNum.toString()))) {
                     correct++
                 }
                 val action = question_screenDirections.actionQuestionScreenToResultScreen(correct, questions)
@@ -82,8 +86,13 @@ class question_screen : Fragment() {
                     .navigate(action)
             }
             else {
+                val df = DecimalFormat("#.##")
+                df.roundingMode = RoundingMode.DOWN
+                val correctNumDecimal = df.format(correctNumDec)
                 // check if userInput matches the correct answer
-                if (userInput.text.toString() == (correctNum.toString())) {
+                if ((userInput.text.toString() == (correctNum.toString()))
+                    ||
+                    (userInput.text.toString() == (correctNumDecimal))) {
                     correct++
                 }
 
@@ -129,7 +138,7 @@ class question_screen : Fragment() {
      * as well as set the oper TextView text to the appropriate operation based on what user chose.
      * If operation == 1 (addition), correctNum is num1 + num2
      * If operation == 2 (multiplication), correctNum is num1 * num2
-     * If operation == 3 (division), correctNum is num1 / num2
+     * If operation == 3 (division), correctNum is num1 / num2 (rounded to nearest whole number)
      * If operation == 4 (subtraction), correctNum is num1 - num2
      */
     fun doMath() {
@@ -142,7 +151,8 @@ class question_screen : Fragment() {
             oper.text = "*"
         }
         else if (operation == 3) {
-            correctNum = num1 / num2
+            correctNum = num1/num2
+            Log.v("correctNum", "correctNum is $correctNum")
             oper.text = "/"
         }
         else if (operation == 4) {
@@ -150,5 +160,4 @@ class question_screen : Fragment() {
             oper.text = "-"
         }
     }
-
 }
