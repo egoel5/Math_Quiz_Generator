@@ -1,15 +1,14 @@
 # Math Quiz Generator
 
-Description of the project ...
+This app generates a miniature math quiz based on what the user wants. It asks the user what difficulty they would like the problems to be, as well as the operation they want the quiz to be on and how many questions they want. After the quiz is over, the app tells you how many questions you got correct, and there is a button that allows the user to restart the quiz from the main screen.
 
 ## Functionality 
 
 The following **required** functionality is completed:
 
-* [ ] User sees ...
-* [ ] User can ...
-* [ ] ...
-* [ ] ...
+* [✅] User sees radio buttons to choose difficulty and operation
+* [✅] User can choose the number of questions they'd like to answer
+* [✅] User answers are checked accurately
 
 The following **extensions** are implemented:
 
@@ -24,7 +23,7 @@ GIF created with [Adobe Express]().
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+One challenge I encountered while working on this project was that my SafeArgs values wouldn't transfer from one fragment to the next. However, I realized after a lot of debugging that the problem was simply the placement of the line declaring the action.
 
 ## License
 
