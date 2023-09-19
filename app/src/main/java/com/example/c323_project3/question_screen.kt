@@ -23,40 +23,56 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class question_screen : Fragment() {
-
+    // declare TextViews that need to be changed later
     lateinit var firstNum : TextView
     lateinit var oper : TextView
     lateinit var secondNum : TextView
 
+    // initialize num variables that will change every question
     var num1 = 0
     var num2 = 0
     var correctNum = 0
-
     var questionsDone = 0
+
+    // initialize vars that will be populated by SafeArgs
+    var correct = 0
     var questions = 1
     var difficulty = 1
     var operation = 1
-    var correct = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_question_screen, container, false)
+        // initialize button and EditText that user will input in
         val doneButton = view.findViewById<Button>(R.id.doneButton)
         val userInput = view.findViewById<EditText>(R.id.userInput)
 
+        // Populate these values using SafeArgs from main_screen
         difficulty = question_screenArgs.fromBundle(requireArguments()).difficulty
         operation = question_screenArgs.fromBundle(requireArguments()).operation
         questions = question_screenArgs.fromBundle(requireArguments()).numOfQuestions
 
+        // initialize TextViews that need to be changed
         firstNum = view.findViewById(R.id.firstNum)
         secondNum = view.findViewById(R.id.secondNum)
         oper = view.findViewById(R.id.operation)
+
+        // method call to getNums() and doMath() on the initial creation of the Fragment
         genNums()
         doMath()
+
+        /* onClickListener for the done button that either sends user to next screen or reloads
+        another question */
         doneButton.setOnClickListener{
+            // add 1 to var that stores number of questions user has answered
             questionsDone++
+
+            /* if questionsDone == # of questions user chose, check if last answer was correct,
+            and then initialize an action that passes on required values to result_screen
+            and then navigate with that action.
+             */
             if (questionsDone == questions) {
                 if (userInput.text.toString() == (correctNum.toString())) {
                     correct++
@@ -66,9 +82,12 @@ class question_screen : Fragment() {
                     .navigate(action)
             }
             else {
+                // check if userInput matches the correct answer
                 if (userInput.text.toString() == (correctNum.toString())) {
                     correct++
                 }
+
+                // reset TextView and generate new nums and get correct answer for new nums
                 userInput.setText("")
                 genNums()
                 doMath()
@@ -77,6 +96,13 @@ class question_screen : Fragment() {
         return view
     }
 
+    /**
+     * This function generates the operands for the math problems based on difficulty user chose.
+     * If difficulty == 1 (easy), operands are between 1 and 9.
+     * If difficulty == 2 (medium), operands are between 1 and 24.
+     * If difficulty == 3 (hard), operands are between 1 and 49.
+     * It then changes the firstNum and secondNum TextViews to display these values accordingly.
+     */
     fun genNums() {
         if (difficulty == 1) {
             num1 = (1..9).random()
@@ -98,6 +124,14 @@ class question_screen : Fragment() {
         }
     }
 
+    /**
+     * This function does the math to evaluate what the correct answer should be for each problem,
+     * as well as set the oper TextView text to the appropriate operation based on what user chose.
+     * If operation == 1 (addition), correctNum is num1 + num2
+     * If operation == 2 (multiplication), correctNum is num1 * num2
+     * If operation == 3 (division), correctNum is num1 / num2
+     * If operation == 4 (subtraction), correctNum is num1 - num2
+     */
     fun doMath() {
         if (operation == 1) {
             correctNum = num1 + num2
