@@ -18,6 +18,7 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+![Video Walkthrough](https://github.com/egoel5/C323_Project3/blob/master/Project%203%20Video%20Walkthrough.gif)
 
 GIF created with [Adobe Express]().
 
