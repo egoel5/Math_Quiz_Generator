@@ -1,5 +1,6 @@
 package com.example.c323_project3
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.findNavController
 import java.math.RoundingMode
@@ -80,8 +82,21 @@ class question_screen : Fragment() {
             if (questionsDone == questions) {
                 if (userInput.text.toString() == ((correctNum.toString()))) {
                     correct++
+                    showToast("Correct. Good Work!")
+                    var mediaPlayer = MediaPlayer.create(context, R.raw.correct)
+                    mediaPlayer.start()
                 }
-                val action = question_screenDirections.actionQuestionScreenToResultScreen(correct, questions)
+                else {
+                    showToast("Wrong.")
+                    var mediaPlayer = MediaPlayer.create(context, R.raw.wrong)
+                    mediaPlayer.start()
+                }
+
+                val action = question_screenDirections.actionQuestionScreenToMainScreen()
+                action.numCorrect = correct
+                action.numQuestions = questions
+                action.operation = operation
+                action.restart = true
                 view.findNavController()
                     .navigate(action)
             }
@@ -94,6 +109,14 @@ class question_screen : Fragment() {
                     ||
                     (userInput.text.toString() == (correctNumDecimal))) {
                     correct++
+                    showToast("Correct. Good Work!")
+                    var mediaPlayer = MediaPlayer.create(context, R.raw.correct)
+                    mediaPlayer.start()
+                }
+                else {
+                    showToast("Wrong.")
+                    var mediaPlayer = MediaPlayer.create(context, R.raw.wrong)
+                    mediaPlayer.start()
                 }
 
                 // reset TextView and generate new nums and get correct answer for new nums
@@ -103,6 +126,10 @@ class question_screen : Fragment() {
             }
         }
         return view
+    }
+
+    fun showToast(message: String, duration: Int = Toast.LENGTH_SHORT){
+        Toast.makeText(context, message , duration).show()
     }
 
     /**
