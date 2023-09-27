@@ -55,14 +55,14 @@ class main_screen : Fragment() {
         var tvNumQ = view.findViewById<TextView>(R.id.tvNumQ)
         var tvInfo = view.findViewById<TextView>(R.id.tvInfo)
 
+        // var checks if main_screen has been reopened or not, false by default
         restarted = main_screenArgs.fromBundle(requireArguments()).restart
-        Log.v("restart?", restarted.toString())
+        // if it has restarted, obtain the values from question_screen
         if (restarted) {
-            Log.v("a", "restart")
             val correctNum = main_screenArgs.fromBundle(requireArguments()).numCorrect
             val totalQuestions = main_screenArgs.fromBundle(requireArguments()).numQuestions
+            // if user has 80% or better score, change the tvInfo to the correct text
             if ((correctNum / totalQuestions) >= .8) {
-                Log.v("b", "correct")
                 when (operation) {
                     1 ->
                         tvInfo.text =
@@ -81,7 +81,7 @@ class main_screen : Fragment() {
                             "You got $correctNum out of $totalQuestions correct in subtraction. Good Work!"
                 }
             } else {
-                Log.v("c", "wrong")
+                // else change textColor to red and then set the tvInfo text to the appropriate text
                 tvInfo.setTextColor(Color.parseColor("#db1760"))
                 when (operation) {
                     1 ->

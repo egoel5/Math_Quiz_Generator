@@ -82,16 +82,22 @@ class question_screen : Fragment() {
             if (questionsDone == questions) {
                 if (userInput.text.toString() == ((correctNum.toString()))) {
                     correct++
+                    /* show Toast with message telling user they are correct, and then play a sound
+                    effect for the correct answer */
                     showToast("Correct. Good Work!")
                     var mediaPlayer = MediaPlayer.create(context, R.raw.correct)
                     mediaPlayer.start()
                 }
                 else {
+                    /* show Toast with message telling user they are wrong, and then play a sound
+                    effect for the wrong answer */
                     showToast("Wrong.")
                     var mediaPlayer = MediaPlayer.create(context, R.raw.wrong)
                     mediaPlayer.start()
                 }
 
+                /* declare action from question_screen to main_screen then set arguments = appropriate
+                values and then findNavController */
                 val action = question_screenDirections.actionQuestionScreenToMainScreen()
                 action.numCorrect = correct
                 action.numQuestions = questions
@@ -128,6 +134,9 @@ class question_screen : Fragment() {
         return view
     }
 
+    /**
+     * This function is a helper for the onCreate to show toasts based on what message is required
+     */
     fun showToast(message: String, duration: Int = Toast.LENGTH_SHORT){
         Toast.makeText(context, message , duration).show()
     }
