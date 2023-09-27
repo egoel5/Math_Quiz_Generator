@@ -1,5 +1,6 @@
 package com.example.c323_project3
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
 import org.w3c.dom.Text
+import kotlin.properties.Delegates
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +30,8 @@ class main_screen : Fragment() {
     var numQuestions = 1
     var difficulty = 1
     var operation = 1
+    var restarted = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +53,55 @@ class main_screen : Fragment() {
         val lessButton = view.findViewById<Button>(R.id.lessButton)
         val moreButton = view.findViewById<Button>(R.id.moreButton)
         var tvNumQ = view.findViewById<TextView>(R.id.tvNumQ)
+        var tvInfo = view.findViewById<TextView>(R.id.tvInfo)
+
+        // var checks if main_screen has been reopened or not, false by default
+        restarted = main_screenArgs.fromBundle(requireArguments()).restart
+        // if it has restarted, obtain the values from question_screen
+        if (restarted) {
+            val correctNum = main_screenArgs.fromBundle(requireArguments()).numCorrect
+            val totalQuestions = main_screenArgs.fromBundle(requireArguments()).numQuestions
+            // if user has 80% or better score, change the tvInfo to the correct text
+            if ((correctNum / totalQuestions) >= .8) {
+                when (operation) {
+                    1 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in addition. Good Work!"
+
+                    2 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in multiplication. Good Work!"
+
+                    3 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in division. Good Work!"
+
+                    4 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in subtraction. Good Work!"
+                }
+            } else {
+                // else change textColor to red and then set the tvInfo text to the appropriate text
+                tvInfo.setTextColor(Color.parseColor("#db1760"))
+                when (operation) {
+                    1 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in addition. You need to practice more!"
+
+                    2 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in multiplication. You need to practice more!"
+
+                    3 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in division. You need to practice more!"
+
+                    4 ->
+                        tvInfo.text =
+                            "You got $correctNum out of $totalQuestions correct in subtraction. You need to practice more!"
+                }
+            }
+        }
 
         /* onClickListener for less button, as long as numQuestions is more than 1, it will reduce
         numQuestions by 1 and set tvNumQ's text to the new numQuestions
@@ -70,6 +123,8 @@ class main_screen : Fragment() {
          * and operation equal to the necessary int value.
          */
         startButton.setOnClickListener {
+            restarted = true
+            Log.v("restart?", restarted.toString())
             if (easy.isChecked) {
                 difficulty = 1
             }
