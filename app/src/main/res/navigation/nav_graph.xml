@@ -13,22 +13,6 @@
         <action
             android:id="@+id/start_click"
             app:destination="@id/question_screen" />
-        <argument
-            android:name="numCorrect"
-            app:argType="integer"
-            android:defaultValue="1"></argument>
-        <argument
-            android:name="numQuestions"
-            app:argType="integer"
-            android:defaultValue="1"></argument>
-        <argument
-            android:name="operation"
-            app:argType="integer"
-            android:defaultValue="1"></argument>
-        <argument
-            android:name="restart"
-            app:argType="boolean"
-            android:defaultValue="false"></argument>
     </fragment>
     <fragment
         android:id="@+id/question_screen"
@@ -36,8 +20,8 @@
         android:label="fragment_question_screen"
         tools:layout="@layout/fragment_question_screen" >
         <action
-            android:id="@+id/action_question_screen_to_main_screen"
-            app:destination="@id/main_screen" />
+            android:id="@+id/action_question_screen_to_result_screen"
+            app:destination="@id/result_screen" />
         <argument
             android:name="difficulty"
             app:argType="integer"></argument>
