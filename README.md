@@ -1,4 +1,4 @@
-# Math Quiz Generator
+# Math Quiz Generator v.2
 
 This app generates a miniature math quiz based on what the user wants. It asks the user what difficulty they would like the problems to be, as well as the operation they want the quiz to be on and how many questions they want. After the quiz is over, the app tells you how many questions you got correct out of the total questions and sends you back to the home screen.
 
@@ -19,7 +19,7 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](https://github.com/egoel5/C323_Project3/blob/master/Project%203%20Video%20Walkthrough.gif)
+![Video Walkthrough](https://github.com/egoel5/C323_Project3/blob/project4/Project%204%20Video%20Walkthrough.gif)
 
 GIF created with [Adobe Express]().
 
